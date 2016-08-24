@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Spring Security</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnsign").click(function(){
+// 		var $form = $("<form>").attr("method", "post").attr("action","sign.html");
+// 		$form.append($("<input>").attr("type", "hidden").attr("name", "username").attr("value", "user"));
+// 		$form.append($("<input>").attr("type", "hidden").attr("name", "password").attr("value", "password"));
+// 		$form.appendTo("body").submit();
+//console.log(document.cookie);
+		$.ajax({
+            type: "POST",
+        url: "login",
+        data: {username:"Barry", password:"123", _csrf:$.cookie("XSRF-TOKEN")},
+        dataType: "json",
+            success: function(msg)
+            {
+                alert("Success: " +msg.msg);
+            },
+            error: function(e)
+            {
+                alert("Error: " +JSON.stringify(e.responseText));                       
+            }
+            });
+		
+	});
+});
+</script>
+<body>
+
+<h1>Welcome</h1>
+
+<p>Click <a href="bye.html">here</a> to see a greeting.</p>
+
+<button id="btnsign">Sign In</button>
+
+</body>
+</html>

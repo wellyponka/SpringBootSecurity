@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Spring Security</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnsignout").click(function(){
+		$.ajax({
+            type: "POST",
+        url: "/logout",
+        data: {_csrf:$.cookie("XSRF-TOKEN")},
+        dataType: "html",
+            success: function(msg)
+            {
+                alert("Success: " +Logout success!!!);
+                location.href = "/index.html";
+            },
+            error: function(e)
+            {
+                alert("Error: " +JSON.stringify(e.responseText));                       
+            }
+            });
+		
+	});
+});
+</script>
+<body>
+
+<h1>Goodbye User !!</h1>
+
+   <input type="submit" id="btnsignout" value="Sign Out"/>
+
+</body>
+</html>
