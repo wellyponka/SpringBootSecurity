@@ -9,22 +9,9 @@
 <script type="text/javascript">
 $(function(){
 	$("#btnsignout").click(function(){
-		$.ajax({
-            type: "POST",
-        url: "/logout",
-        data: {_csrf:$.cookie("XSRF-TOKEN")},
-        dataType: "html",
-            success: function(msg)
-            {
-                alert("Success: " +Logout success!!!);
-                location.href = "/index.html";
-            },
-            error: function(e)
-            {
-                alert("Error: " +JSON.stringify(e.responseText));                       
-            }
-            });
-		
+		var $form = $("<form>").attr("method", "post").attr("action","/logout");
+		$form.append($("<input>").attr("type", "hidden").attr("name", "_csrf").attr("value", $.cookie("XSRF-TOKEN")));
+		$form.appendTo("body").submit();
 	});
 });
 </script>

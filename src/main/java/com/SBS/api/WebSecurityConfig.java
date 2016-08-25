@@ -23,9 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/hello.html", "/bye.html").authenticated()
         .anyRequest().permitAll()
         .and()
-      .formLogin().successHandler(mySuccessHandler()).and()
+      .formLogin().successHandler(mySuccessHandler()).defaultSuccessUrl("/api/WebSueecssUrl?type=login").and()
 //      .loginPage("/sign.html").defaultSuccessUrl("/bye.html").permitAll().and()
-      .logout().logoutSuccessUrl("/index.html").permitAll().and()
+      .logout().logoutSuccessUrl("/api/WebSueecssUrl?type=logout").permitAll().and()
       .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     
     }
