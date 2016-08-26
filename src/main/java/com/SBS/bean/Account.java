@@ -13,20 +13,23 @@ public class Account implements Serializable {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public Account setName(String name) {
 		this.name = name;
+		return this;
 	}
 	public String getPwd() {
 		return pwd;
 	}
-	public void setPwd(String pwd) {
+	public Account setPwd(String pwd) {
 		this.pwd = pwd;
+		return this;
 	}
 	public String getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public Account setRole(String role) {
 		this.role = role;
+		return this;
 	}
 
 }

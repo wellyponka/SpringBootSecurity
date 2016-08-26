@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Spring Security</title>
+</head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		type : "get",
+		url  : "/api/WebAllAccount",
+		dataType : "json",
+		success: function(res)
+        {
+			console.log(res);
+			$.each(res.data, function(i){
+				i += 1;
+				var $tr = $("<tr>");
+				var $th_id = $("<th>").text(i).appendTo($tr);
+				var $th_name = $("<th>").text(this.name).appendTo($tr);
+				var $th_pwd = $("<th>").text(this.pwd).appendTo($tr);
+				var $th_role = $("<th>").text(this.role).appendTo($tr);
+				$("#table").append($tr);
+			});
+			
+        },
+        error: function(e)
+        {
+            alert("Error: " +JSON.stringify(e.responseText));                       
+        }
+	});
+});
+</script>
+<body>
+
+<h1>Hello here is all account</h1>
+
+   <table id="table">
+   	<tr>
+    	<th>ID</th>
+    	<th>Username</th>
+    	<th>Password</th>
+    	<th>Role</th>
+  	</tr>
+   </table>
+
+</body>
+</html>

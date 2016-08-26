@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Spring Security</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btn").click(function(){
+		$.ajax({
+			type : "POST",
+			url  : "/api/WebRegister",
+			dataType : "json",
+			data: {name:$("#name").val(), pwd:$("#pwd").val(), _csrf:$.cookie("XSRF-TOKEN")},
+			success: function(msg)
+            {
+                alert("Success: " +msg.msg);
+            },
+            error: function(e)
+            {
+                alert("Error: " +JSON.stringify(e.responseText));                       
+            }
+		});
+	});
+});
+</script>
+<body>
+
+<h1>Hello input your username & password</h1>
+
+   <div>Username: <input type="text" id="name" /></div>
+   <div>Password: <input type="text" id="pwd" /></div>
+   <button id="btn">register</button>
+
+</body>
+</html>
