@@ -25,13 +25,43 @@ tr:nth-child(even) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script type="text/javascript">
 $(function(){
+	function removeAccount(name){
+		$.ajax({
+			type : "post",
+			url  : "/api/WebRemoveAccount",
+			dataType : "json",
+			data : {name : name, _csrf : $.cookie("XSRF-TOKEN")},
+			success: function(res){
+				alert(res.msg);
+				location.reload();
+			},
+			error: function(e){
+	            alert("Error: " +JSON.stringify(e.responseText));                       
+	        }
+		});
+	}
+	
+	function editAccount(name){
+		$.ajax({
+			type : "post",
+			url  : "/api/WebEditAccount",
+			dataType : "json",
+			data : {name : name, pwd : "asdf", _csrf : $.cookie("XSRF-TOKEN")},
+			success: function(res){
+				alert(res.msg);
+				location.reload();
+			},
+			error: function(e){
+	            alert("Error: " +JSON.stringify(e.responseText));                       
+	        }
+		});
+	}
+	
 	$.ajax({
 		type : "get",
 		url  : "/api/WebAllAccount",
 		dataType : "json",
-		success: function(res)
-        {
-			console.log(res);
+		success: function(res){
 			$.each(res.data, function(i){
 				i += 1;
 				var $tr = $("<tr>");
@@ -39,6 +69,15 @@ $(function(){
 				var $th_name = $("<th>").text(this.name).appendTo($tr);
 				var $th_pwd = $("<th>").text(this.pwd).appendTo($tr);
 				var $th_role = $("<th>").text(this.role).appendTo($tr);
+				var $th_edit = $("<th>").appendTo($tr);
+				var $btn_edit = $("<button>").attr("name", this.name).text("編輯").click(function(){
+					editAccount(this.name);
+				}).appendTo($th_edit);
+				var $th_delete = $("<th>").appendTo($tr);
+				var $btn_delete = $("<button>").attr("name", this.name).text("刪除").click(function(){
+					removeAccount(this.name);
+				}).appendTo($th_delete);
+				var $th_ = $("<th>").appendTo($tr);
 				$("#table").append($tr);
 			});
 			
@@ -60,6 +99,8 @@ $(function(){
     	<th>Username</th>
     	<th>Password</th>
     	<th>Role</th>
+    	<th>Edit</th>
+    	<th>Delete</th>
   	</tr>
    </table>
 
