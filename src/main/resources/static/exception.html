@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Spring Security</title>
+</head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	function testEx(vaule){
+		$.ajax({
+			type : "get",
+			url  : "/api/ExceptionTest",
+			dataType : "json",
+			data : {ex : vaule, _csrf : $.cookie("XSRF-TOKEN")},
+			success: function(res){
+				alert(res.msg);
+				console.log(res);
+			},
+			error: function(e){
+				console.log(e);
+	            alert("Error: " +JSON.stringify(e.responseText));                       
+	        }
+		});
+	}
+	
+	$(".ex").click(function(){
+		testEx($(this).val());
+	});
+});
+</script>
+<body>
+
+<h1>Hello test exception</h1>
+
+    <p>Click this to test exception <button class="ex" value="1">Test Ex1</button></p>
+
+	<p>Click this to test exception2 <button class="ex" value =2>Test Ex2</button></p>
+
+</body>
+</html>

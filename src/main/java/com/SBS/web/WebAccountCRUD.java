@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +20,7 @@ public class WebAccountCRUD {
 	@Autowired
 	private AccountMapper accMapper;
 	
-	@RequestMapping(value = "/WebRegister", method = RequestMethod.POST)
+	@PostMapping("/WebRegister")
 	public Result<?> regisert(@RequestParam String name, String pwd) {
 		Account acc = new Account().setName(name).setPwd(pwd).setRole("ADMIN");
 		if(this.accMapper.registerUser(acc) == 1)
@@ -30,14 +30,12 @@ public class WebAccountCRUD {
 	}
 	
 	@GetMapping("/WebAllAccount")
-//	@RequestMapping(value = "/WebAllAccount", method = RequestMethod.GET)
 	public Result<Account> getAllAccount() {
 		List<Account> acc = this.accMapper.getAllAccount();
 		return new Result<Account>().setError(0).setMsg("Get all account success").setData(acc);
-		
 	}
 	
-	@RequestMapping(value = "/WebRemoveAccount", method = RequestMethod.POST)
+	@PostMapping("/WebRemoveAccount")
 	public Result<?> removeAccount(@RequestParam String name) {
 		Account acc = new Account().setName(name);
 		if(this.accMapper.removeUser(acc) == 1)
@@ -47,7 +45,7 @@ public class WebAccountCRUD {
 		
 	}
 	
-	@RequestMapping(value = "/WebEditAccount", method = RequestMethod.POST)
+	@PostMapping("/WebEditAccount")
 	public Result<?> editAccount(@RequestParam String name, String pwd) {
 		Account acc = new Account().setName(name).setPwd(pwd);
 		if(this.accMapper.editUser(acc) == 1)
